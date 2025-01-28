@@ -26,7 +26,7 @@ export const logoutUser = () => async (dispatch) => {
   }
 };
 
-// Listen for auth state changes
+
 export const listenToAuthChanges = () => (dispatch) => {
   auth.onAuthStateChanged((user) => {
     if (user) {

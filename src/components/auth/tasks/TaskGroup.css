@@ -1,0 +1,86 @@
+.task-group {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .task-group-title {
+    font-size: 18px;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  
+  .todo {
+    background-color: #f9c0ff;
+  }
+  
+  .in-progress {
+    background-color: #a7e0ff;
+  }
+  
+  .completed {
+    background-color: #c1f0c1;
+  }
+  
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .task-details h4 {
+    margin: 0;
+  }
+  
+  .task-category {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .task-due {
+    font-size: 12px;
+  }
+  
+  .task-status {
+    padding: 4px;
+    border-radius: 4px;
+  }
+  
+  .task-actions {
+    display: flex;
+    gap: 8px;
+  }
+.edit-del-button {
+  position: "relative"; 
+  display: "inline-block"
+}
+
+.edit-del-dropdown {
+  
+    position: "absolute";
+    top: "30px";
+    right: "0";
+    background: "#fff";
+    border-radius: "5px";
+    box-shadow: "0px 0px 5px rgba(0,0,0,0.2)";
+    padding: "10px";
+    min-width: "100px";
+  
+}
+
+.edit-btn {
+padding: "5px 10px"; cursor: "pointer" ; display: "flex" ; align-items: "center";
+}
+.del-btn {
+  
+    padding: "5px 10px";
+    cursor: "pointer";
+    display: "flex";
+    align-items: "center";
+    color: "red";
+
+}
+
+  
