@@ -1,0 +1,113 @@
+/* KanbanBoard.css */
+
+.kanban-column {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .kanban-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  .kanban-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .kanban-task {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .task-category {
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+  }
+  
+  .task-options {
+    position: relative;
+  }
+  
+  .options-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .options-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .options-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .options-dropdown button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .task-options:hover .options-dropdown {
+    display: block;
+  }
+  
+  .task-title {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .task-due-date {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  
+  .task-actions select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+  
+  .empty-tasks {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+  }

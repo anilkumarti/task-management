@@ -3,6 +3,7 @@ import "./TaskGroup.css";
 import UpdateTaskModal from "./UpdateTaskModal";
 import './AddTaskForm'
 import AddTaskForm from "./AddTaskForm";
+import { Plus } from "lucide-react";
 
 const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
   console.log('Group',title, tasks)
@@ -32,7 +33,7 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
       <h3 className={`task-group-title ${title.toLowerCase()}`}>{title} ({tasks.length})</h3>
       {!showAddForm ? (
           <div className="add-task-trigger" onClick={() => setShowAddForm(true)}>
-            <button>+</button> Add Task
+             <Plus/> Add Task
           </div>
         ) : (
           <AddTaskForm
