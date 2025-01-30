@@ -52,6 +52,13 @@
   background-color: #4b00b5;
 }
 
+ .calender {
+
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 8px;
+ }
 /* Task List Container */
 .task-list-container {
   margin-top: 10px;

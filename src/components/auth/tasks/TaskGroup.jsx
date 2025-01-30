@@ -3,8 +3,9 @@ import "./TaskGroup.css";
 import UpdateTaskModal from "./UpdateTaskModal";
 import "./AddTaskForm";
 import AddTaskForm from "./AddTaskForm";
-import { Plus } from "lucide-react";
-
+import { Plus, GripVerticalIcon} from "lucide-react";
+import { ReactComponent as CheckmarkIcon } from "../../../assets/icons/checkmark-green.svg";
+import { ReactComponent as CheckmarkGrey } from "../../../assets/icons/checkmark-grey.svg";
 const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
   console.log("Group", title, tasks);
 
@@ -64,11 +65,16 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
           tasks.map((task) => (
             <div key={task.id} className="task-item">
               {/* Checkbox */}
+             <div>
               <input
                 type="checkbox"
                 checked={selectedTasks.includes(task.id)}
                 onChange={() => handleCheckboxChange(task.id)}
               />
+              <GripVerticalIcon/>
+               <CheckmarkIcon width={24} height={24} />
+               <CheckmarkGrey width={24} height={24} />
+              </div>
               {tasks.map((task) => (
                 <div key={task.id} className="task-item">
                   {/* updateModal */}
@@ -89,7 +95,7 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
                   {currentDate === task.dueDate ? "Today" : task.dueDate}{" "}
                 </p>
               </div>
-
+                  <div>
               <select
                 value={task.status}
                 onChange={(e) => onStatusChange(task.id, e.target.value)}
@@ -99,6 +105,7 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
                 <option value="In-Progress">In Progress</option>
                 <option value="Completed">Completed</option>
               </select>
+              </div>
 
               <div className="task-actions">
                 <div className="edit-del-button">
