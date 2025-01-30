@@ -42,7 +42,9 @@ const TaskForm = ({ onClose }) => {
       <div className="task-form">
         <div className="form-header">
           <h2>Create Task</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -62,63 +64,88 @@ const TaskForm = ({ onClose }) => {
             className="description-input"
           />
           <span className="character-count">{characterCount}/300</span>
+          <div className="select">
+            <div className="form-group">
+              <label>Task Category*</label>
+              <div className="category-buttons">
+                <button
+                  type="button"
+                  className={`category-btn ${
+                    category === "Work" ? "active" : ""
+                  }`}
+                  onClick={() => setCategory("Work")}
+                >
+                  Work
+                </button>
+                <button
+                  type="button"
+                  className={`category-btn ${
+                    category === "Personal" ? "active" : ""
+                  }`}
+                  onClick={() => setCategory("Personal")}
+                >
+                  Personal
+                </button>
+              </div>
+            </div>
 
-          <div className="form-group">
-            <label>Task Category*</label>
-            <div className="category-buttons">
-              <button
-                type="button"
-                className={`category-btn ${category === "Work" ? "active" : ""}`}
-                onClick={() => setCategory("Work")}
+            <div className="form-group">
+              <label>Due on*</label>
+              <input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="date-input"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Task Status*</label>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="status-select"
+                required
               >
-                Work
-              </button>
-              <button
-                type="button"
-                className={`category-btn ${category === "Personal" ? "active" : ""}`}
-                onClick={() => setCategory("Personal")}
-              >
-                Personal
-              </button>
+                <option value="">Choose</option>
+                <option value="TO-DO">To Do</option>
+                <option value="IN-PROGRESS">In Progress</option>
+                <option value="COMPLETED">Completed</option>
+              </select>
             </div>
           </div>
-
           <div className="form-group">
-            <label>Due on*</label>
-            <input
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-              className="date-input"
-              required
-            />
+            <label>Attachment</label>
+            <div className="file-upload-container">
+              <div className="file-upload-area">
+                <input
+                  type="file"
+                  id="file-upload"
+                  className="file-input upload-link"
+                  onClick={(e) => setFile(e.target.files[0])}
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="file-upload" className="upload-label">
+                  Drop your files here or <span className="upload-link">Update</span>
+                </label>
+                {file && <div className="file-name">{file.name}</div>}
+              </div>
+            </div>
           </div>
-
-          <div className="form-group">
-            <label>Task Status*</label>
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="status-select"
-              required
-            >
-              <option value="">Choose</option>
-              <option value="TO-DO">To Do</option>
-              <option value="IN-PROGRESS">In Progress</option>
-              <option value="COMPLETED">Completed</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-          <label>Attachment</label>
-<div className="file-upload-container">
-  <div className="file-upload-area">
-    <input type="file" className="file-input upload-link"  onClick={(e)=> setFile(e.target.files[0])}/>
-    {/* <span className="upload-link">Choose file</span> */}
-  </div>
-</div>
-
-          </div>
+          {/* <div className="form-group">
+            <label>Attachment</label>
+            <div className="file-upload-container">
+              <div className="file-upload-area">
+                <input
+                  type="file"
+                  className="file-input upload-link"
+                  onClick={(e) => setFile(e.target.files[0])}
+                />
+             
+              </div>
+            </div>
+          </div> */}
 
           <div className="form-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>

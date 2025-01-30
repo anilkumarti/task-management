@@ -1,27 +1,42 @@
 import React from 'react'
-import { useDispatch,useSelector } from 'react-redux';
-import { logoutUser} from '../../../services/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../../services/auth';
+import './Navbar.css'
+import { LogOut } from 'lucide-react';
 
 const Navbar = () => {
-  const {user, loading}=useSelector((state)=> state.auth)
-    const dispatch=useDispatch();
-  const handleLogout= ()=> {
-        dispatch(logoutUser())
-    }
-    if(loading)
-    {
-        return <div> Loading...</div>
-    }
+  const { user, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <nav>
       <h2>TaskBuddy</h2>
-      <div> 
-       <div> Anil</div>
-        { user && <button onClick={handleLogout}>  Logout</button>
-}
+      <div className="user-info">
+        
+        {user && (
+          <>  
+          <div> 
+            <img 
+              src={user.photoURL || '/default-profile.png'} 
+              alt="User"
+              className="user-image"
+            />
+            <p className="user-name">{user.displayName || 'Anonymous'}</p>
+            </div>
+            <button className='btn' onClick={handleLogout}> <LogOut/>Logout</button>
+          </>
+        )}
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

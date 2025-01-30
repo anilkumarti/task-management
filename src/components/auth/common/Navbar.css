@@ -1,0 +1,73 @@
+
+.user-info{
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+ 
+  }
+  
+ 
+  nav h2 {
+    font-family: 'Mulish', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    margin: 0;
+  }
+  
+
+  nav div {
+    display: flex;
+    align-items: center;
+  }
+
+  nav div div {
+    font-size: 16px;
+    color: #555555;
+    margin-right: 15px;
+  }
+  
+  
+  nav button {
+    display: inline-flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: #FFF9F9;
+    color:black;
+    border: 1px solid #7B1984;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  nav button:hover {
+    background-color: #ff1c1c;
+  }
+  
+  nav button svg {
+    margin-right: 8px; /* Add space between icon and text */
+  }
+  
+  
+
+  div {
+    font-size: 16px;
+    color: #777777;
+  }
+
+  .user-image{
+    border-radius: 50%;
+    max-height: 50px;
+    margin: 10px;
+  }

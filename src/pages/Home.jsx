@@ -3,7 +3,7 @@ import TaskForm from '../components/auth/tasks/TaskForm'
 import TaskList from '../components/auth/tasks/TaskList'
 
 const Home = () => {
-  const[showModal,setShowMoadal]=useState(true);
+  const[showModal,setShowMoadal]=useState(false);
   const closeHandle=()=> {
     setShowMoadal(prev=> setShowMoadal(!prev))
   }
@@ -11,7 +11,7 @@ const Home = () => {
     <div>
     { showModal && <TaskForm onClose={closeHandle} /> }
      <TaskList  openAddTask={closeHandle} />
-
+      
     </div>
   )
 }

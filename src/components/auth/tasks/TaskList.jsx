@@ -58,30 +58,43 @@ const TaskList = ({ openAddTask }) => {
         </button>
       </div>
       <div className="task-list">
-        <div className="task-filter">
-          <p>filter by</p>
-          <select onChange={(e) => setFilterCategory(e.target.value)}>
-            <option value="">Filter by Category</option>
-            <option value="Work">Work</option>
-            <option value="Personal">Personal</option>
-          </select>
 
-          <input
-            type="date"
-            onChange={(e) => setFilterDueDate(e.target.value)}
-            placeholder="Filter by Due Date"
-          />
+      <div className="task-controls">
 
-          <input
-            type="text"
-            placeholder="Search tasks..."
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+  <div className="filter-section">
+    <p>Filter by</p>
+    <select onChange={(e) => setFilterCategory(e.target.value)}>
+      <option value="">Filter by Category</option>
+      <option value="Work">Work</option>
+      <option value="Personal">Personal</option>
+    </select>
 
-          <button onClick={openAddTask} className="add-task-btn">
-            Add Task
-          </button>
-        </div>
+    <input 
+      type="date"
+      onChange={(e) => setFilterDueDate(e.target.value)}
+      placeholder="Filter by Due Date"
+      className="calender"
+    />
+  </div>
+
+ 
+ 
+
+  <div className="search-add-section">
+    <input
+      type="text"
+      placeholder="Search tasks..."
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+
+    <button onClick={openAddTask} className="add-task-btn">
+      Add Task
+    </button>
+
+  
+  </div>
+</div>
+
 
         {activeView === "board" ? (
           <div className="Kanban-Board">
@@ -114,7 +127,7 @@ const TaskList = ({ openAddTask }) => {
                 <p>Task Status</p>
                 <p>Task Category</p>
               </div>
-
+              {/* <hr className="long-line" /> */}
               <TaskGroup
                 title="Todo"
                 tasks={filterTasks("Todo")}

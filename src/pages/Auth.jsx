@@ -5,7 +5,7 @@ const Auth = () => {
   return (
     <div>
         <SignIn/>
-      This is auth js
+    
     </div>
   )
 }

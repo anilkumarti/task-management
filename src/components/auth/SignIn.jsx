@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../services/firebase";
 import { loginStart, loginSuccess, loginFailure } from "../../redux/slices/authSlice";
+import "./SignIn.css"; // Import the CSS file
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -20,9 +21,12 @@ const SignIn = () => {
   }; 
 
   return (
-    <div>
-      <h1>Task Management App</h1>
-      <button onClick={handleSignIn}>Sign In with Google</button>
+    <div className="sign-in-container">
+      <h1 className="title">Task Buddy</h1>
+      <button className="sign-in-button" onClick={handleSignIn}>
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" />
+        Continue with Google
+      </button>
     </div>
   );
 };

@@ -1,17 +1,21 @@
 /* KanbanBoard.css */
 
 .kanban-column {
+    
     background-color: #f9f9f9;
+    
     border-radius: 8px;
     padding: 16px;
     margin: 8px;
-    width: 300px;
+    width: 400px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .kanban-title {
+   padding: 5px;
+    display: inline;
     font-size: 18px;
-    font-weight: bold;
+     border-radius: 8px !important;
     margin-bottom: 16px;
     color: #333;
   }
@@ -24,6 +28,7 @@
   
   .kanban-task {
     background-color: #fff;
+   
     border-radius: 8px;
     padding: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
