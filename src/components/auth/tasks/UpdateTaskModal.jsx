@@ -1,40 +1,62 @@
 import React, { useState } from "react";
 import "./UpdateTaskModal.css";
+import logActivity from "../../../services/logActivity";
+import { useDispatch } from "react-redux"; 
+import { updateTask } from "../../../redux/slices/taskSlice";
 
-const UpdateTaskModal = ({ task, onUpdate, onClose }) => {
+const UpdateTaskModal = ({ task, onClose }) => {
+  const dispatch = useDispatch();
   const [taskDetails, setTaskDetails] = useState({
-    name: task.name,
-    description: task.description,
-    category: task.category,
-    dueDate: task.dueDate,
-    status: task.status,
-    attachment: task.attachment || null,
+    title: task?.title || "",
+    description: task?.description || "",
+    category: task?.category || "Work",
+    dueDate: task?.dueDate || "",
+    status: task?.status || "TO-DO",
+    attachment: task?.attachment || null,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTaskDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+  
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setTaskDetails((prevDetails) => ({ ...prevDetails, attachment: file }));
+ 
+ 
   };
-
   const handleUpdate = () => {
-    onUpdate(taskDetails);
+    console.log("Updating task with details:", taskDetails);
+    dispatch(updateTask(task.id, taskDetails));
+    logActivity("user_123", `Updated Task ${task.id} to ${taskDetails.status}`, {
+      taskId: task.id,
+      newStatus: taskDetails.status,
+    });
     onClose();
+
   };
 
+  
+  
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Edit Task</h2>
+        
         <textarea
           name="description"
           value={taskDetails.description}
           onChange={handleChange}
+          placeholder="Task description"
         />
+
+        <div className="toolbar">
+          <button><b>B</b></button>
+          <button><i>I</i></button>
+          <button>&bull; List</button>
+        </div>
         
         <div className="category-selector">
           <button 
@@ -72,6 +94,10 @@ const UpdateTaskModal = ({ task, onUpdate, onClose }) => {
             <button onClick={() => setTaskDetails({ ...taskDetails, attachment: null })}>Remove</button>
           </div>
         )}
+
+        <div className="activity-log">
+    
+        </div>
 
         <div className="modal-actions">
           <button className="cancel-btn" onClick={onClose}>Cancel</button>

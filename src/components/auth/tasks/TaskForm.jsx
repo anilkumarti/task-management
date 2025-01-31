@@ -133,19 +133,6 @@ const TaskForm = ({ onClose }) => {
               </div>
             </div>
           </div>
-          {/* <div className="form-group">
-            <label>Attachment</label>
-            <div className="file-upload-container">
-              <div className="file-upload-area">
-                <input
-                  type="file"
-                  className="file-input upload-link"
-                  onClick={(e) => setFile(e.target.files[0])}
-                />
-             
-              </div>
-            </div>
-          </div> */}
 
           <div className="form-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>

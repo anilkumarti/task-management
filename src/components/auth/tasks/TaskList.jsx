@@ -3,7 +3,7 @@ import "./TaskList.css";
 import "./KanbanBoard";
 
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTask, updateTaskStatus } from "../../../redux/slices/taskSlice";
+import { deleteTask, updateTaskStatus,updateTask } from "../../../redux/slices/taskSlice";
 import TaskGroup from "./TaskGroup";
 import KanbanBoard from "./KanbanBoard";
 import { List, LayoutGrid } from "lucide-react";
@@ -29,17 +29,23 @@ const TaskList = ({ openAddTask }) => {
 
       return statusMatch && categoryMatch && dueDateMatch && searchMatch;
     });
-
+    console.log(filteredTasks); 
     return filteredTasks;
   };
 
   const handleDeleteTask = (id) => {
+    console.log("Deleting task with id:", id);
     dispatch(deleteTask(id));
   };
 
   const handleStatusChange = (id, status) => {
     dispatch(updateTaskStatus({ id, status }));
   };
+  console.log("data of task",tasks);
+  const handleUpdateTask=(id,updatedTaskData)=> {
+    console.log(`Updating task with id: ${id}`, updatedTaskData);
+    dispatch(updateTask({ id, updatedTaskData }));
+  }
 
   return (
     <div>
@@ -130,18 +136,21 @@ const TaskList = ({ openAddTask }) => {
               {/* <hr className="long-line" /> */}
               <TaskGroup
                 title="Todo"
+                onUpdateTask={handleUpdateTask} 
                 tasks={filterTasks("Todo")}
                 onDelete={handleDeleteTask}
                 onStatusChange={handleStatusChange}
               />
               <TaskGroup
                 title="In-Progress"
+                onUpdateTask={handleUpdateTask} 
                 tasks={filterTasks("In-Progress")}
                 onDelete={handleDeleteTask}
                 onStatusChange={handleStatusChange}
               />
               <TaskGroup
                 title="Completed"
+                onUpdateTask={handleUpdateTask} 
                 tasks={filterTasks("Completed")}
                 onDelete={handleDeleteTask}
                 onStatusChange={handleStatusChange}

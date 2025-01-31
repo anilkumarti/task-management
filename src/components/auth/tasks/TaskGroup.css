@@ -67,12 +67,34 @@ border-bottom-right-radius: 0;
   .task-due {
     font-size: 12px;
   }
-  
+  .task-status-select {
+    position: relative;
+    width: 100px; /* Adjust width as needed */
+  }
   .task-status {
     padding: 4px;
     border-radius: 4px;
-  }
+    background-color: #DDDADD;
+    display: inline-block;
+    position: relative;
+ 
+}
+.task-status::after {
   
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensure the arrow doesn't interfere with clicking */
+  color: #666; /* Arrow color */
+}
+
+.task-status option {
+  background-color: white !important ;/* Background color */
+  color: black  !important; /* Text color */
+  padding: 8px;
+  font-size: 14px;
+} 
   .task-actions {
     display: flex;
     gap: 8px;

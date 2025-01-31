@@ -19,8 +19,17 @@ const taskSlice = createSlice({
         task.status = status;
       }
     },
+    updateTask: (state, action) => {
+      const { id, updatedTaskData } = action.payload;
+      const taskIndex = state.tasks.findIndex(task => task.id === id);
+      if (taskIndex !== -1) {
+        // Ensure immutability by creating a new object
+        state.tasks[taskIndex] = { ...state.tasks[taskIndex], ...updatedTaskData };
+      }
+    }
+    
   },
 });
 
-export const { addTask, deleteTask, updateTaskStatus } = taskSlice.actions;
+export const { addTask, deleteTask, updateTaskStatus,updateTask } = taskSlice.actions;
 export default taskSlice.reducer;

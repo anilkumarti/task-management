@@ -3,12 +3,16 @@ import "./TaskGroup.css";
 import UpdateTaskModal from "./UpdateTaskModal";
 import "./AddTaskForm";
 import AddTaskForm from "./AddTaskForm";
-import { Plus, GripVerticalIcon} from "lucide-react";
+import { Plus, GripVerticalIcon } from "lucide-react";
 import { ReactComponent as CheckmarkIcon } from "../../../assets/icons/checkmark-green.svg";
 import { ReactComponent as CheckmarkGrey } from "../../../assets/icons/checkmark-grey.svg";
-const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
-  console.log("Group", title, tasks);
-
+const TaskGroup = ({
+  title,
+  onUpdateTask,
+  tasks,
+  onDelete,
+  onStatusChange,
+}) => {
   const [openTaskId, setOpenTaskId] = useState(null);
   const [openUpdateModal, setOpenUpdateModal] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -37,6 +41,12 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
     );
     setShowStatusModal(true);
   };
+  const handleUpdateTask = (id, updatedTask) => {
+    // Call the onUpdateTask function passed from the parent component
+    onUpdateTask(id, updatedTask);
+    // Close the update modal
+    setOpenUpdateModal(null);
+  };
 
   return (
     <>
@@ -54,59 +64,61 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
           </div>
         )}
 
+        {/* add task in Todo will be open  */}
+
         {showAddForm && (
           <AddTaskForm
             onAdd={handleAddTask}
             onCancel={() => setShowAddForm(false)}
           />
         )}
+        {/* items of each task row */}
 
         {tasks.length > 0 ? (
           tasks.map((task) => (
             <div key={task.id} className="task-item">
               {/* Checkbox */}
-             <div>
-              <input
-                type="checkbox"
-                checked={selectedTasks.includes(task.id)}
-                onChange={() => handleCheckboxChange(task.id)}
-              />
-              <GripVerticalIcon/>
-               <CheckmarkIcon width={24} height={24} />
-               <CheckmarkGrey width={24} height={24} />
-              </div>
-              {tasks.map((task) => (
-                <div key={task.id} className="task-item">
-                  {/* updateModal */}
-                  {openUpdateModal === task.id && (
-                    <UpdateTaskModal
-                      task={task}
-                      onClose={() => setOpenUpdateModal(null)}
-                    />
-                  )}
-                </div>
-              ))}
-
-              <div className="task-details">
-                <h4>{task.title}</h4>
-                <p className="task-category">{task.category}</p>
-                <p className="task-due">
-                  {" "}
-                  {currentDate === task.dueDate ? "Today" : task.dueDate}{" "}
-                </p>
-              </div>
-                  <div>
-              <select
-                value={task.status}
-                onChange={(e) => onStatusChange(task.id, e.target.value)}
-                className="task-status"
-              >
-                <option value="Todo">To-Do</option>
-                <option value="In-Progress">In Progress</option>
-                <option value="Completed">Completed</option>
-              </select>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={selectedTasks.includes(task.id)}
+                  onChange={() => handleCheckboxChange(task.id)}
+                />
+                <GripVerticalIcon />
+                {task.status === "Completed" ? (
+                  <CheckmarkIcon width={24} height={24} />
+                ) : (
+                  <CheckmarkGrey width={24} height={24} />
+                )}
               </div>
 
+              {/* updateModal */}
+              {openUpdateModal === task.id && (
+                <UpdateTaskModal
+                  task={task}
+                  onClose={() => setOpenUpdateModal(null)}
+                  onUpdate={handleUpdateTask}
+                />
+              )}
+
+              <p className="task-due">
+                {currentDate === task.dueDate ? "Today" : task.dueDate}
+              </p>
+              <h4>{task.title}</h4>
+              <p className="task-category">{task.category}</p>
+
+              <div className="task-status-select">
+                <select
+                  value={task.status}
+                  onChange={(e) => onStatusChange(task.id, e.target.value)}
+                  className="task-status"
+                >
+                  <option value="Todo">To-Do</option>
+                  <option value="In-Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
+              <p className="task-category">{task.category}</p>
               <div className="task-actions">
                 <div className="edit-del-button">
                   {/* Trigger button */}
@@ -147,6 +159,9 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
           <p className="no-tasks">No tasks available.</p>
         )}
       </div>
+
+      {/* code for showModal */}
+
       {showStatusModal && (
         <div className="status-modal">
           <div className="modal-content">
@@ -199,8 +214,7 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
 
                 {showStatusDropdown && (
                   <div className="dropdown-menu">
-                    <button 
-                    
+                    <button
                       onClick={() => {
                         selectedTasks.forEach((taskId) =>
                           onStatusChange(taskId, "Todo")
@@ -232,7 +246,6 @@ const TaskGroup = ({ title, tasks, onDelete, onStatusChange }) => {
                         setSelectedTasks([]);
                         setShowStatusDropdown(false);
                         setShowStatusDropdown(false);
-                        
                       }}
                     >
                       Completed
