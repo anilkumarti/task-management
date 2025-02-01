@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import "./KanbanBoard.css";
+import UpdateTaskModal from "./UpdateTaskModal";
+const KanbanBoard = ({ title, tasks, onDelete, onStatusChange,  onUpdateTask}) => {
+    const [openTaskId, setOpenTaskId] = useState(null);
+    const [openUpdateModal, setOpenUpdateModal] = useState(null);
+    
+    const currentDate = new Date().toISOString().split("T")[0];
+    
+  
+    const toggleMenu = (taskId) => {
+      setOpenTaskId((prev) => (prev === taskId ? null : taskId));
+    };
+    const openUpdateModalHandler = (taskId) => {
+      setOpenUpdateModal((prev) => (prev === taskId ? null : taskId));
+    };
+  
+    const handleUpdateTask = (id, updatedTask) => {
+    
+      onUpdateTask(id, updatedTask);
+      
+      setOpenUpdateModal(null);
+    };
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      const day = date.getDate();
+      const month = date.toLocaleString('default', { month: 'short' });
+      const year = date.getFullYear();
+      return `${day} ${month}, ${year}`;
+    };
 
-const KanbanBoard = ({ title, tasks, onDelete, onStatusChange, onEdit }) => {
   return (
     <div className="kanban-column">
       <h2 className={`kanban-title ${title.toLowerCase().replace(" ", "-")}`}>
@@ -13,29 +40,57 @@ const KanbanBoard = ({ title, tasks, onDelete, onStatusChange, onEdit }) => {
         ) : (
           tasks.map((task) => (
             <div key={task.id} className="kanban-task">
-              <div className="task-header">
-                <span className="task-category">{task.category}</span>
-                <div className="task-options">
-                  <button className="options-btn">⋮</button>
-                  <div className="options-dropdown">
-                    <button onClick={() => onEdit(task.id)}>✏ Edit</button>
-                    <button onClick={() => onDelete(task.id)} className="delete-btn">
-                      🗑 Delete
-                    </button>
-                  </div>
+              <div className="first-row"> 
+              <h3 className="task-title">{task.title}</h3>
+
+              <div className="task-actions">
+                <div className="edit-del-button">
+                  {/* Trigger button */}
+                  <button
+                    onClick={() => toggleMenu(task.id)}
+                    style={{
+                      fontSize: "20px",
+                      border: "none",
+                      background: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    &#x22EE;
+                  </button>
+              {/* updateModal */}
+              {openUpdateModal === task.id && (
+                <UpdateTaskModal
+                  task={task}
+                  onClose={() => setOpenUpdateModal(null)}
+                  onUpdate={handleUpdateTask}
+                />
+              )}
+                  {/* Dropdown Menu */}
+                  {openTaskId === task.id && (
+                    <div className="edit-del-dropdown">
+                      <div
+                        className="edit-btn"
+                        onClick={() => openUpdateModalHandler(task.id)}
+                      >
+                        ✏️ Edit
+                      </div>
+                      <div
+                        className="del-btn"
+                        onClick={() => onDelete(task.id)}
+                      >
+                        🗑️ Delete
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-              <h3 className="task-title">{task.title}</h3>
-              <p className="task-due-date">Due: {task.dueDate}</p>
-              <div className="task-actions">
-                <select
-                  value={task.status}
-                  onChange={(e) => onStatusChange(task.id, e.target.value)}
-                >
-                  <option value="Todo">Todo</option>
-                  <option value="In-Progress">In-Progress</option>
-                  <option value="Completed">Completed</option>
-                </select>
+              </div>
+              <div className="second-row">
+              {/* <span className="task-category">{task.category}</span> */}
+              <p className="task-category">{task.category}</p>
+              <p className="task-due">
+                {currentDate === task.dueDate ? "Today" : formatDate(task.dueDate) }
+              </p>
               </div>
             </div>
           ))

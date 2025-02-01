@@ -1,9 +1,13 @@
 import { db } from "./firebase";
-import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 
-const fetchActivityLogs = async () => {
+const fetchActivityLogs = async (taskId) => {
   try {
-    const q = query(collection(db, "activity_logs"), orderBy("timestamp", "desc"));
+    const q = query(
+      collection(db, "activity_logs"),
+      where("extraInfo.taskId", "==", taskId),
+      orderBy("timestamp", "desc")
+    );
     const querySnapshot = await getDocs(q);
     const logs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     return logs;
@@ -12,3 +16,5 @@ const fetchActivityLogs = async () => {
     return [];
   }
 };
+
+export default fetchActivityLogs;

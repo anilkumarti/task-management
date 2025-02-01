@@ -32,8 +32,10 @@ const AddTaskForm = ({ onAdd, onCancel }) => {
 
     return (
         <div className="add-task-container">
+            
             <form onSubmit={handleSubmit} className="add-task-form">
                 <div className="form-main">
+                
                     <input
                         type="text"
                         name="title"
@@ -42,7 +44,7 @@ const AddTaskForm = ({ onAdd, onCancel }) => {
                         className="task-title-input"
                         placeholder="Task Title"
                         autoFocus
-                    />
+                    /> 
                     <div className="task-controls">
                         <button 
                             type="button" 

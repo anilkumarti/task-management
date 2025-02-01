@@ -2,7 +2,8 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../../services/auth';
 import './Navbar.css'
-import { LogOut } from 'lucide-react';
+import { LogOut} from 'lucide-react';
+import { ReactComponent as TaskIcon } from "../../../assets/icons/task_icon.svg";
 
 const Navbar = () => {
   const { user, loading } = useSelector((state) => state.auth);
@@ -18,7 +19,8 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h2>TaskBuddy</h2>
+      <div> 
+       <TaskIcon/> <h2>TaskBuddy</h2></div>
       <div className="user-info">
         
         {user && (

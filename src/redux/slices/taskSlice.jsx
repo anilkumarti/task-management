@@ -21,14 +21,11 @@ const taskSlice = createSlice({
     },
     updateTask: (state, action) => {
       const { id, updatedTaskData } = action.payload;
-      const taskIndex = state.tasks.findIndex(task => task.id === id);
-      if (taskIndex !== -1) {
-        // Ensure immutability by creating a new object
-        state.tasks[taskIndex] = { ...state.tasks[taskIndex], ...updatedTaskData };
-      }
-    }
-    
-  },
+      state.tasks = state.tasks.map((task) =>
+        task.id === id ? { ...task, ...updatedTaskData } : task
+      );
+    },
+  }
 });
 
 export const { addTask, deleteTask, updateTaskStatus,updateTask } = taskSlice.actions;

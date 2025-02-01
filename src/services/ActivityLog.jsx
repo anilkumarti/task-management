@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import fetchActivityLogs from "./fetchActivityLogs";
+import fetchActivityLogs from "./FetchActivitylog";
 
-const ActivityLog = () => {
+const ActivityLog = ({ taskId }) => {
   const [logs, setLogs] = useState([]);
 
   useEffect(() => {
     const getLogs = async () => {
-      const logsData = await fetchActivityLogs();
+      const logsData = await fetchActivityLogs(taskId);
       setLogs(logsData);
     };
     getLogs();
-  }, []);
+  }, [taskId]);
 
   return (
     <div>

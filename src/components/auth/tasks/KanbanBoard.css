@@ -1,118 +1,156 @@
-/* KanbanBoard.css */
+
 
 .kanban-column {
-    
-    background-color: #f9f9f9;
-    
-    border-radius: 8px;
-    padding: 16px;
-    margin: 8px;
-    width: 400px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  background-color: #f4f4f4;
+  font-family: 'Mulish', sans-serif;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 10px;
+  width: 400px ;
+  box-shadow: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.kanban-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 6px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.kanban-title[data-status="TODO"] {
+  background-color: #eabfff;
+}
+
+.kanban-title[data-status="IN-PROGRESS"] {
+  background-color: #4da9ff;
+}
+
+.kanban-title[data-status="COMPLETED"] {
+  background-color: #6bc46d;
+}
+
+.kanban-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   
-  .kanban-title {
-   padding: 5px;
-    display: inline;
-    font-size: 18px;
-     border-radius: 8px !important;
-    margin-bottom: 16px;
-    color: #333;
-  }
+}
+
+.kanban-task {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
   
-  .kanban-tasks {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  gap: 6px;
+} 
+
+.kanban-task:hover {
+  transform: scale(1.02);
+}
+.first-row {
+  display: flex;
   
-  .kanban-task {
-    background-color: #fff;
-   
-    border-radius: 8px;
-    padding: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 60px;
+
+
+}
+.second-row {
   
-  .task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
   
-  .task-category {
-    font-size: 14px;
-    color: #666;
-    font-weight: bold;
-  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   
-  .task-options {
-    position: relative;
-  }
-  
-  .options-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #666;
-  }
-  
-  .options-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-  }
-  
-  .options-dropdown button {
-    display: block;
-    width: 100%;
-    padding: 8px 16px;
-    text-align: left;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  .options-dropdown button:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .task-options:hover .options-dropdown {
-    display: block;
-  }
-  
-  .task-title {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 8px;
-  }
-  
-  .task-due-date {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 8px;
-  }
-  
-  .task-actions select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
-    background-color: #f9f9f9;
-  }
-  
-  .empty-tasks {
-    font-size: 14px;
-    color: #666;
-    text-align: center;
-  }
+}
+.task-title {
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.task-due {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.task-actions {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-actions select {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #6b73ff;
+  cursor: pointer;
+}
+
+.task-actions select:hover {
+  background-color: #000dff;
+}
+
+.edit-del-button button {
+  font-size: 18px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.edit-del-dropdown {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 5px 0;
+  width: 100px;
+  text-align: left;
+  z-index: 10;
+}
+
+.edit-btn, .del-btn {
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.edit-btn:hover {
+  background-color: #f1f1f1;
+}
+
+.del-btn {
+  color: red;
+}
+
+.del-btn:hover {
+  background-color: #ffe6e6;
+}
+
+.empty-tasks {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  font-style: italic;
+}

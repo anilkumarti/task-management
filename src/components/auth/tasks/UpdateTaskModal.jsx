@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./UpdateTaskModal.css";
 import logActivity from "../../../services/logActivity";
-import { useDispatch } from "react-redux"; 
-import { updateTask } from "../../../redux/slices/taskSlice";
+import ActivityLog from "../../../services/ActivityLog";
 
-const UpdateTaskModal = ({ task, onClose }) => {
-  const dispatch = useDispatch();
+const UpdateTaskModal = ({ task, onClose,onUpdate }) => {
+  
   const [taskDetails, setTaskDetails] = useState({
     title: task?.title || "",
     description: task?.description || "",
@@ -28,8 +27,9 @@ const UpdateTaskModal = ({ task, onClose }) => {
  
   };
   const handleUpdate = () => {
-    console.log("Updating task with details:", taskDetails);
-    dispatch(updateTask(task.id, taskDetails));
+   
+    console.log("Updating task with details: in Updatetaskmodal", taskDetails);
+    onUpdate(task.id, taskDetails); 
     logActivity("user_123", `Updated Task ${task.id} to ${taskDetails.status}`, {
       taskId: task.id,
       newStatus: taskDetails.status,
@@ -42,9 +42,18 @@ const UpdateTaskModal = ({ task, onClose }) => {
   
   return (
     <div className="modal-overlay">
+    <div className="modal-container">
       <div className="modal-content">
-        <h2>Edit Task</h2>
-        
+
+      <div className="task-details-form"> 
+         
+        <input
+          type="text"
+          name="title"
+          value={taskDetails.title}
+          onChange={handleChange}
+          placeholder="Task title"
+        />
         <textarea
           name="description"
           value={taskDetails.description}
@@ -94,11 +103,13 @@ const UpdateTaskModal = ({ task, onClose }) => {
             <button onClick={() => setTaskDetails({ ...taskDetails, attachment: null })}>Remove</button>
           </div>
         )}
-
+     
+     </div>
         <div className="activity-log">
-    
+        <ActivityLog taskId={task.id} />
+      
+        </div> 
         </div>
-
         <div className="modal-actions">
           <button className="cancel-btn" onClick={onClose}>Cancel</button>
           <button className="update-btn" onClick={handleUpdate}>Update</button>

@@ -131,14 +131,17 @@ padding: "5px 10px"; cursor: "pointer" ; display: "flex" ; align-items: "center"
 }
 
 .status-modal {
+  
   position: fixed;
   bottom: 10px;
   left: 50%;
+  width: 450px;
+  height: 90px;
   transform: translateX(-50%);
-  background: black;
+  background: black; 
   color: white;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -147,27 +150,52 @@ padding: "5px 10px"; cursor: "pointer" ; display: "flex" ; align-items: "center"
 .modal-content {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; 
+ 
+  margin: 12px;
+
+}
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+ 
 }
 
 .modal-buttons button {
-  background: #555;
+   font-size: 12px;
+  background: #282626;
   color: white;
+  width: 80px;
   border: none;
-  padding: 5px 10px;
+ padding: 6px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 14px;
+}
+.task-selected {
+  font-size: 12px;
+  color: white;
+  display: flex; 
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: space-between; 
+  background-color: black; 
+  border-radius: 15px; 
+  padding: 6px; 
+  border: 1px solid rgb(177, 176, 176); /* Add a border if needed */
 }
 
 .delete-btn {
-  background: red;
+  background-color: #3f1b1b !important;
+  color: #FF3535 !important;
+   border-radius: 1px solid rgb(122, 84, 84);
 }
 
 .close-btn {
   background: transparent;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 12px;
   cursor: pointer;
 }
 .dropdown {
@@ -181,6 +209,7 @@ padding: "5px 10px"; cursor: "pointer" ; display: "flex" ; align-items: "center"
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
+  margin-right: 5px;
 }
 
 .dropdown-menu {
@@ -208,5 +237,4 @@ padding: "5px 10px"; cursor: "pointer" ; display: "flex" ; align-items: "center"
 .dropdown-menu button:hover {
   background: #444;
 }
-
 

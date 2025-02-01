@@ -3,12 +3,13 @@ import "./TaskGroup.css";
 import UpdateTaskModal from "./UpdateTaskModal";
 import "./AddTaskForm";
 import AddTaskForm from "./AddTaskForm";
-import { Plus, GripVerticalIcon } from "lucide-react";
+import { Plus, GripVerticalIcon, CheckSquare,X, } from "lucide-react";
 import { ReactComponent as CheckmarkIcon } from "../../../assets/icons/checkmark-green.svg";
 import { ReactComponent as CheckmarkGrey } from "../../../assets/icons/checkmark-grey.svg";
 const TaskGroup = ({
   title,
   onUpdateTask,
+
   tasks,
   onDelete,
   onStatusChange,
@@ -42,10 +43,44 @@ const TaskGroup = ({
     setShowStatusModal(true);
   };
   const handleUpdateTask = (id, updatedTask) => {
-    // Call the onUpdateTask function passed from the parent component
+    
     onUpdateTask(id, updatedTask);
-    // Close the update modal
+    
     setOpenUpdateModal(null);
+  };
+
+  const handleStatusChange = (status) => {
+    selectedTasks.forEach((taskId) => onStatusChange(taskId, status));
+    setSelectedTasks([]); // Clear selected tasks
+    setShowStatusDropdown(false); // Close the dropdown  
+    setShowStatusModal(false); // Close the modal
+  };
+  const toggleSelectAllTasks = () => {
+    console.log("Selected Tasks Before:", selectedTasks);
+    console.log("Total Tasks:", tasks.length);
+
+    if (selectedTasks.length === tasks.length) {
+      // If all tasks are selected, deselect all
+      setSelectedTasks([]);
+      console.log("Deselected All Tasks");
+    } else {
+      // Otherwise, select all tasks
+      setSelectedTasks(tasks.map((task) => task.id));
+      console.log("Selected All Tasks");
+    }
+
+    console.log("Selected Tasks After:", selectedTasks);
+  };
+  const closeModal = () => {
+    setSelectedTasks([]); // Clear selected tasks
+    setShowStatusModal(false); // Close the modal
+  };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    return `${day} ${month}, ${year}`;
   };
 
   return (
@@ -102,7 +137,7 @@ const TaskGroup = ({
               )}
 
               <p className="task-due">
-                {currentDate === task.dueDate ? "Today" : task.dueDate}
+                {currentDate === task.dueDate ? "Today" : formatDate(task.dueDate)}
               </p>
               <h4>{task.title}</h4>
               <p className="task-category">{task.category}</p>
@@ -118,7 +153,7 @@ const TaskGroup = ({
                   <option value="Completed">Completed</option>
                 </select>
               </div>
-              <p className="task-category">{task.category}</p>
+
               <div className="task-actions">
                 <div className="edit-del-button">
                   {/* Trigger button */}
@@ -161,100 +196,44 @@ const TaskGroup = ({
       </div>
 
       {/* code for showModal */}
-
       {showStatusModal && (
         <div className="status-modal">
           <div className="modal-content">
-            <p>{selectedTasks.length} Tasks Selected</p>
+            <div className="task-selected"> 
+            <span>{selectedTasks.length} Tasks Selected</span>  
+            <X onClick={closeModal} style={{ cursor: "pointer"  }} /> 
+            </div> 
+            <div className="select-all-buttons">
+            <CheckSquare
+                onClick={toggleSelectAllTasks}
+                style={{ cursor: "pointer", color: selectedTasks.length === tasks.length ? "green" : "grey" }} // Change color based on selection
+              />
+            </div>
 
             <div className="modal-buttons">
-              {/* Status Button with Drop-Up */}
               <div className="dropdown">
                 <button
                   className="status-btn"
                   onClick={() => setShowStatusDropdown(!showStatusDropdown)}
                 >
-                  Status ⬆
+                  Status
                 </button>
 
                 {showStatusDropdown && (
                   <div className="dropdown-menu">
-                    <button
-                      onClick={() => {
-                        selectedTasks.forEach((taskId) =>
-                          onStatusChange(taskId, "Todo")
-                        ); // Update status of each selected task to "Todo"
-                        setShowStatusDropdown(false); // Close the dropdown
-                      }}
-                    >
+                    <button onClick={() => handleStatusChange("Todo")}>
                       To-Do
                     </button>
-                    <button
-                      onClick={() => {
-                        selectedTasks.forEach((taskId) =>
-                          onStatusChange(taskId, "In-Progress")
-                        ); // Update status of each selected task to "In-Progress"
-                        setShowStatusDropdown(false); // Close the dropdown
-                      }}
-                    >
+                    <button onClick={() => handleStatusChange("In-Progress")}>
                       In Progress
                     </button>
-                    <button
-                      onClick={() => {
-                        selectedTasks.forEach((taskId) =>
-                          onStatusChange(taskId, "Completed")
-                        ); // Update status of each selected task to "Completed"
-                        setShowStatusDropdown(false); // Close the dropdown
-                      }}
-                    >
-                      Completed
-                    </button>
-                  </div>
-                )}
-
-                {showStatusDropdown && (
-                  <div className="dropdown-menu">
-                    <button
-                      onClick={() => {
-                        selectedTasks.forEach((taskId) =>
-                          onStatusChange(taskId, "Todo")
-                        );
-                        setSelectedTasks([]);
-                        setShowStatusDropdown(false);
-                        setShowStatusDropdown(false);
-                      }}
-                    >
-                      To-Do
-                    </button>
-                    <button
-                      onClick={() => {
-                        selectedTasks.forEach((taskId) =>
-                          onStatusChange(taskId, "In-Progress")
-                        );
-                        setSelectedTasks([]);
-                        setShowStatusDropdown(false);
-                        setShowStatusDropdown(false);
-                      }}
-                    >
-                      In Progress
-                    </button>
-                    <button
-                      onClick={() => {
-                        selectedTasks.forEach((taskId) =>
-                          onStatusChange(taskId, "Completed")
-                        );
-                        setSelectedTasks([]);
-                        setShowStatusDropdown(false);
-                        setShowStatusDropdown(false);
-                      }}
-                    >
+                    <button onClick={() => handleStatusChange("Completed")}>
                       Completed
                     </button>
                   </div>
                 )}
               </div>
 
-              {/* Delete Button  for Modal...*/}
               <button
                 className="delete-btn"
                 onClick={() => {
@@ -267,7 +246,6 @@ const TaskGroup = ({
               </button>
             </div>
 
-            {/* Close Button */}
             <button
               className="close-btn"
               onClick={() => setShowStatusModal(false)}

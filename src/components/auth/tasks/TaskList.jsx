@@ -6,7 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteTask, updateTaskStatus,updateTask } from "../../../redux/slices/taskSlice";
 import TaskGroup from "./TaskGroup";
 import KanbanBoard from "./KanbanBoard";
-import { List, LayoutGrid } from "lucide-react";
+
+import { ReactComponent as ListIcon } from "../../../assets/icons/list_icon.svg";
+import { ReactComponent as GroupIcon } from "../../../assets/icons/GroupIcon.svg";
 
 const TaskList = ({ openAddTask }) => {
   const tasks = useSelector((state) => state.tasks.tasks);
@@ -29,7 +31,7 @@ const TaskList = ({ openAddTask }) => {
 
       return statusMatch && categoryMatch && dueDateMatch && searchMatch;
     });
-    console.log(filteredTasks); 
+    
     return filteredTasks;
   };
 
@@ -41,9 +43,10 @@ const TaskList = ({ openAddTask }) => {
   const handleStatusChange = (id, status) => {
     dispatch(updateTaskStatus({ id, status }));
   };
-  console.log("data of task",tasks);
+  // console.log("data of task",tasks);
+
   const handleUpdateTask=(id,updatedTaskData)=> {
-    console.log(`Updating task with id: ${id}`, updatedTaskData);
+    
     dispatch(updateTask({ id, updatedTaskData }));
   }
 
@@ -54,13 +57,13 @@ const TaskList = ({ openAddTask }) => {
           className={activeView === "list" ? "active" : ""}
           onClick={() => setActiveView("list")}
         >
-           <List /> List
+           <ListIcon /> List
         </button>
         <button
           className={activeView === "board" ? "active" : ""}
           onClick={() => setActiveView("board")}
         >
-          <LayoutGrid/> Board
+          <GroupIcon/> Board
         </button>
       </div>
       <div className="task-list">
