@@ -93,24 +93,32 @@ const [draggedTaskId, setDraggedTaskId] = useState(null);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [openTaskId]);
+  const handleDragStart = (e, taskId) => {
+    console.log("Dragging Task IDaaaa:", taskId);
+    setDraggedTaskId(taskId); // Set the dragged task ID
+    e.dataTransfer.setData("text/plain", taskId); // Required for Firefox
+  };
 
   const handleDragOver = (e) => {
     e.preventDefault(); 
     e.dataTransfer.dropEffect = "move"
   };
 
-  const handleDrop = (e) => {
+
+  const handleDrop = (e, newStatus) => {
     e.preventDefault();
     const taskId = e.dataTransfer.getData("text/plain");
-  
-    if (taskId && onStatusChange) {
-      onStatusChange(taskId, title); // Update the task's status to the new column's title
-      setDraggedTaskId(null); // Reset the dragged task ID
+    
+    if (taskId) {
+      onStatusChange(taskId, newStatus);  // Update task's status
+      setDraggedTaskId(null);
     }
   };
+  
   return (
     <>
-      <div className="task-group">
+      <div className="task-group"   onDragOver={handleDragOver}
+  onDrop={(e) => handleDrop(e, title)} >
         <h3 className={`task-group-title ${title.toLowerCase()}`}>
           {title} ({tasks.length})
         </h3>
@@ -136,7 +144,7 @@ const [draggedTaskId, setDraggedTaskId] = useState(null);
 
         {tasks.length > 0 ? (
           tasks.map((task) => (
-            <div key={task.id} className="task-item">
+            <div key={task.id} className="task-item"  onDragStart={(e) => handleDragStart(e, task.id)} draggable >
               {/* Checkbox */}
               <div className="task-checkbox">
                 <input

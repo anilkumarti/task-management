@@ -2,9 +2,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { signInWithPopup } from "firebase/auth";
+import { ToastContainer, toast } from 'react-toastify';
 import { auth, googleProvider } from "../../services/firebase";
 import { loginStart, loginSuccess, loginFailure } from "../../redux/slices/authSlice";
 import "./SignIn.css"; // Import the CSS file
+import circlesBg from "../../assets/icons/circles_bg.png"; 
+import taskImage from "../../assets/TaskList.png"; 
+
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -19,14 +23,41 @@ const SignIn = () => {
       console.log("sign in failed")
     }
   }; 
+  const handleTaskImageClick = () => {
+    toast.info("Please log in first!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   return (
+    <div className='main-container' > 
+ 
+
     <div className="sign-in-container">
       <h1 className="title">Task Buddy</h1>
       <button className="sign-in-button" onClick={handleSignIn}>
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" />
         Continue with Google
       </button>
+    </div>
+    <div className="sample-image"   style={{
+    backgroundImage: `url(${circlesBg})`,
+  
+    height: "110vh",
+    backgroundSize: "cover", 
+
+  }}> 
+  <div className="task-img" >  <img src={taskImage} alt="Task Image" onClick={handleTaskImageClick} /> </div>
+  
+
+  </div>
+  <ToastContainer />
     </div>
   );
 };

@@ -1,13 +1,22 @@
-
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  
+}
 .sign-in-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start !important;
     justify-content: center;
-    height: 100vh;
-    background-color: #f5f5f5;
+    
+  
     font-family: Arial, sans-serif;
   }
+   
   
   .sign-in-container h1 {
     font-size: 2rem;
@@ -35,4 +44,108 @@
   .sign-in-button img {
     width: 20px;
     margin-right: 10px;
+  }
+  
+  .sample-image {
+    display: flex;
+    align-items: center;
+    transform: translateX(40%); 
+    width: 38%;
+    justify-content: flex-start;
+  }
+  .task-image {
+    width: 400px;
+    height: 400px;
+  }
+  @media screen and (max-width: 1024px) {
+    .main-container {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .sign-in-container {
+      align-items: center;
+      text-align: center;
+    }
+  
+    .sample-image {
+      transform: translateX(0);
+      width: 100%;
+      justify-content: center;
+      order: 3; /* Moves the circle image to the last */
+    }
+  
+    .task-image {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  
+
+  @media screen and (max-width: 1024px) {
+    .main-container {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: auto;
+      padding: 50px 20px;
+    }
+  
+    .sign-in-container {
+      align-items: center;
+      text-align: center;
+      order: 1;
+    }
+  
+    .sample-image {
+      transform: translateX(0);
+      width: 100%;
+      justify-content: center;
+      order: 3; /* Moves the circle image to the last */
+    }
+  
+    .task-image {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .sign-in-container h1 {
+      font-size: 1.8rem;
+    }
+  
+    .sign-in-button {
+      font-size: 0.9rem;
+      padding: 10px 16px;
+    }
+  
+    .task-image {
+      width: 250px;
+      height: 250px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .sign-in-container {
+      height: 500px;
+    }
+    .sign-in-container h1 {
+      font-size: 1.5rem;
+    }
+  
+    .sign-in-button {
+      font-size: 0.8rem;
+      padding: 8px 14px;
+    }
+    .sample-image {
+      min-height: 100px !important;
+    }
+  
+    .task-image {
+      display: none !important;
+    }
   }

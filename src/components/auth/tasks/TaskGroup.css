@@ -1,15 +1,20 @@
 .task-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
       margin: 10px 0;
      background-color: #f5f5f5;
     border-radius: 10px; 
+    font-size: 14px;
     
    
   }
   
   .task-group-title {
-    font-size: 18px;
+    font-size: 16px;
     padding: 8px 12px;
     border-radius: 6px;
+    font-weight: bold;
   }
   
   .todo { 
@@ -58,22 +63,24 @@ border-bottom-right-radius: 0;
     justify-content: space-between;
     align-items: center;
     padding: 8px;
-    border-bottom: 1px solid gray;
-    background: #fff;
-    min-height: 100px; 
+    border-bottom: 1px solid grey;
+    background:#f5f5f5 ;
+
+    min-height: 90px; 
   }
+ 
   
   .task-details h4 {
     margin: 0;
   }
   
   .task-category {
-    font-size: 12px;
+    font-size: 14px;
     color: gray;
   }
   
   .task-due {
-    font-size: 12px;
+    font-size: 14px;
   }
   .task-status-select {
     position: relative;
@@ -181,7 +188,7 @@ padding: "5px 10px"; cursor: "pointer" ; display: "flex" ; align-items: "center"
   border-radius: 14px;
 }
 .task-selected {
-  font-size: 12px;
+  font-size: 14px;
   color: white;
   display: flex; 
   flex-direction: row; 
