@@ -65,7 +65,7 @@
   padding: 8px;
   margin: 8px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 14px;
  background-color: #F1F1F1;
 }
@@ -186,9 +186,34 @@
 }
 
 .status-select {
-  border-radius: 8px; 
+  border-radius: 20px !important; 
   padding: 8px; 
   border: 1px solid #ccc; 
   background-color: #F1F1F1 !important;
 
+}
+.task-title-input {
+  width: 100% !important;
+}
+@media (max-width: 480px) {
+  .task-form {
+    width: 95%;
+  }
+
+  .category-buttons {
+    flex-direction: row;
+  }
+  .select {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  
+   
+}
+.date-input {
+  border-radius: 40px;
+}
+  
 }

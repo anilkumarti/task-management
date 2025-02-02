@@ -17,9 +17,10 @@
   text-transform: uppercase;
   text-align: left;
   padding: 6px 12px;
+
   border-radius: 12px;
   margin-bottom: 12px;
-  color: #fff;
+  color: #171212;
 }
 
 .kanban-title[data-status="TODO"] {
@@ -57,9 +58,15 @@
 .kanban-task:hover {
   transform: scale(1.02);
 }
+
+.kanban-task.dragging {
+  opacity: 0.5;
+  border: 2px dashed #ccc;
+}
+
 .first-row {
   display: flex;
-  
+  margin-bottom: 20px;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 60px;
@@ -153,4 +160,36 @@
   color: #666;
   text-align: center;
   font-style: italic;
+}
+
+
+body.modal-open .kanban-task:hover {
+  transform: none !important;
+}
+
+body.modal-open .kanban-column .kanban-task *{ 
+  pointer-events: none; 
+}
+body.modal-open .kanban-column .kanban-task {
+  pointer-events: none; 
+}
+
+body.modal-open .kanban-column .task-actions {
+  pointer-events: auto; 
+}
+
+.kanban-column {
+  border: 2px dashed transparent;
+  min-width: 400px;
+}
+
+.kanban-column.drag-over {
+  border-color: #007bff; 
+}
+
+.kanban-task.dragging {
+  opacity: 0.5; 
+}
+.kanban-task.dragging:hover {
+  transform: none;
 }

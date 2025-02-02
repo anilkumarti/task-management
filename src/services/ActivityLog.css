@@ -1,0 +1,133 @@
+/* Base styles for activity container */
+.activity-container {
+    font-family: 'Mulish', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+   
+    
+ 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align content to the top */
+  }
+  
+  /* No activity message */
+  .no-activity {
+    color: gray;
+    font-size: 14px;
+    text-align: left; /* Align text to the left */
+  }
+  
+  .activtiy-heading {
+    font-size: 16px;
+    border-bottom: 1px  solid gray ;
+  }
+  .activity-list {
+
+    /* background-color: red; */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%; /* Ensure it takes full width */
+  }
+  
+  
+ .activity-item {
+    display: flex;
+   
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    gap: 30px;
+    
+    width: 100%;
+  }  
+  /* Activity text */
+  .activity-text {
+    margin: 0;
+    color: #1E212A;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  /* Activity time */
+  .activity-time {
+    margin: 0;
+    color: #1E212A;
+    font-size: 14px;
+  }
+  
+  /* Heading for activity list */
+  .activity-list h3 {
+    margin: 0 0 15px 0; /* Add margin below the heading */
+    font-size: 18px;
+    color: #1E212A;
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 480px) {
+    .activity-container {
+      padding: 10px;
+    }
+  
+    .activity-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+    }
+  
+    .activity-text {
+      font-size: 12px;
+    }
+  
+    .activity-time {
+      font-size: 12px;
+    }
+  }
+  
+
+@media (max-width: 480px) {
+.activity-container {
+ 
+    font-family: 'Mulish', sans-serif;
+  }
+  
+
+
+  
+  .no-activity {
+    color: gray;
+    font-size: 14px;
+  }
+  
+  .activity-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .activity-item {
+    margin-bottom: 10px;
+    display: flex;
+    padding: 3px;
+    margin: 5px;
+    gap: 100px;
+  }
+  
+  .activity-text {
+    margin: 0;
+    color: #1E212A;
+    font-size: 10px;
+    font-weight:100;
+  }
+  
+  .activity-time {
+    margin: 0;
+   
+    color: #1E212A;
+    font-size: 10px;
+  }
+}

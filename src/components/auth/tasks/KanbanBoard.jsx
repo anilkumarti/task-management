@@ -4,7 +4,7 @@ import UpdateTaskModal from "./UpdateTaskModal";
 const KanbanBoard = ({ title, tasks, onDelete, onStatusChange,  onUpdateTask}) => {
     const [openTaskId, setOpenTaskId] = useState(null);
     const [openUpdateModal, setOpenUpdateModal] = useState(null);
-    
+    const [draggedTaskId, setDraggedTaskId] = useState(null);
     const currentDate = new Date().toISOString().split("T")[0];
     
   
@@ -15,6 +15,7 @@ const KanbanBoard = ({ title, tasks, onDelete, onStatusChange,  onUpdateTask}) =
       setOpenUpdateModal((prev) => (prev === taskId ? null : taskId));
     };
   
+    
     const handleUpdateTask = (id, updatedTask) => {
     
       onUpdateTask(id, updatedTask);
@@ -28,9 +29,30 @@ const KanbanBoard = ({ title, tasks, onDelete, onStatusChange,  onUpdateTask}) =
       const year = date.getFullYear();
       return `${day} ${month}, ${year}`;
     };
+    const handleDragStart = (e, taskId) => {
+      console.log("Dragging Task IDaaaa:", taskId);
+      setDraggedTaskId(taskId); // Set the dragged task ID
+      e.dataTransfer.setData("text/plain", taskId); // Required for Firefox
+    };
+  
+    const handleDragOver = (e) => {
+      e.preventDefault(); 
+      e.dataTransfer.dropEffect = "move"
+    };
+  
+    const handleDrop = (e) => {
+      e.preventDefault();
+      const taskId = e.dataTransfer.getData("text/plain");
+    
+      if (taskId && onStatusChange) {
+        onStatusChange(taskId, title); // Update the task's status to the new column's title
+        setDraggedTaskId(null); // Reset the dragged task ID
+      }
+    };
 
   return (
-    <div className="kanban-column">
+    <div className="kanban-column" onDragOver={handleDragOver}
+    onDrop={handleDrop}>
       <h2 className={`kanban-title ${title.toLowerCase().replace(" ", "-")}`}>
         {title}
       </h2>
@@ -39,7 +61,11 @@ const KanbanBoard = ({ title, tasks, onDelete, onStatusChange,  onUpdateTask}) =
           <p className="empty-tasks">No tasks available</p>
         ) : (
           tasks.map((task) => (
-            <div key={task.id} className="kanban-task">
+            <div key={task.id} className={`kanban-task ${draggedTaskId === task.id ? "dragging" : ""}`}   draggable // Make the task draggable
+            onDragStart={(e) => handleDragStart(e, task.id)} 
+          //  onClick={(e) => { e.stopPropagation();   } }
+           
+            >
               <div className="first-row"> 
               <h3 className="task-title">{task.title}</h3>
 
@@ -47,7 +73,9 @@ const KanbanBoard = ({ title, tasks, onDelete, onStatusChange,  onUpdateTask}) =
                 <div className="edit-del-button">
                   {/* Trigger button */}
                   <button
-                    onClick={() => toggleMenu(task.id)}
+                    onClick={(e) => 
+                      { e.stopPropagation();
+                        toggleMenu(task.id)}}
                     style={{
                       fontSize: "20px",
                       border: "none",
@@ -100,4 +128,4 @@ const KanbanBoard = ({ title, tasks, onDelete, onStatusChange,  onUpdateTask}) =
   );
 };
 
-export default KanbanBoard;
+export default React.memo(KanbanBoard);

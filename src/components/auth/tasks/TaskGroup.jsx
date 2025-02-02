@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./TaskGroup.css";
 import UpdateTaskModal from "./UpdateTaskModal";
 import "./AddTaskForm";
 import AddTaskForm from "./AddTaskForm";
-import { Plus, GripVerticalIcon, CheckSquare,X, } from "lucide-react";
+import { Plus, GripVerticalIcon, CheckSquare, X } from "lucide-react";
 import { ReactComponent as CheckmarkIcon } from "../../../assets/icons/checkmark-green.svg";
 import { ReactComponent as CheckmarkGrey } from "../../../assets/icons/checkmark-grey.svg";
 const TaskGroup = ({
@@ -22,7 +22,7 @@ const TaskGroup = ({
   const [selectedTasks, setSelectedTasks] = useState([]); // Track selected tasks for modal
   const [showStatusModal, setShowStatusModal] = useState(false); // Controls modal visibility
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
-
+const [draggedTaskId, setDraggedTaskId] = useState(null);
   const toggleMenu = (taskId) => {
     setOpenTaskId((prev) => (prev === taskId ? null : taskId));
   };
@@ -43,16 +43,15 @@ const TaskGroup = ({
     setShowStatusModal(true);
   };
   const handleUpdateTask = (id, updatedTask) => {
-    
     onUpdateTask(id, updatedTask);
-    
+
     setOpenUpdateModal(null);
   };
 
   const handleStatusChange = (status) => {
     selectedTasks.forEach((taskId) => onStatusChange(taskId, status));
     setSelectedTasks([]); // Clear selected tasks
-    setShowStatusDropdown(false); // Close the dropdown  
+    setShowStatusDropdown(false); // Close the dropdown
     setShowStatusModal(false); // Close the modal
   };
   const toggleSelectAllTasks = () => {
@@ -78,11 +77,37 @@ const TaskGroup = ({
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' });
+    const month = date.toLocaleString("default", { month: "short" });
     const year = date.getFullYear();
     return `${day} ${month}, ${year}`;
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (openTaskId && !event.target.closest(".edit-del-button")) {
+        setOpenTaskId(null);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openTaskId]);
+
+  const handleDragOver = (e) => {
+    e.preventDefault(); 
+    e.dataTransfer.dropEffect = "move"
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const taskId = e.dataTransfer.getData("text/plain");
+  
+    if (taskId && onStatusChange) {
+      onStatusChange(taskId, title); // Update the task's status to the new column's title
+      setDraggedTaskId(null); // Reset the dragged task ID
+    }
+  };
   return (
     <>
       <div className="task-group">
@@ -113,7 +138,7 @@ const TaskGroup = ({
           tasks.map((task) => (
             <div key={task.id} className="task-item">
               {/* Checkbox */}
-              <div>
+              <div className="task-checkbox">
                 <input
                   type="checkbox"
                   checked={selectedTasks.includes(task.id)}
@@ -137,9 +162,15 @@ const TaskGroup = ({
               )}
 
               <p className="task-due">
-                {currentDate === task.dueDate ? "Today" : formatDate(task.dueDate)}
+                {currentDate === task.dueDate
+                  ? "Today"
+                  : formatDate(task.dueDate)}
               </p>
-              <h4>{task.title}</h4>
+              <h4 className={`task-title ${task.status === "Completed" ? "completed-task" : ""}`}
+              >
+                {task.title}
+              </h4>
+
               <p className="task-category">{task.category}</p>
 
               <div className="task-status-select">
@@ -199,14 +230,18 @@ const TaskGroup = ({
       {showStatusModal && (
         <div className="status-modal">
           <div className="modal-content">
-            <div className="task-selected"> 
-            <span>{selectedTasks.length} Tasks Selected</span>  
-            <X onClick={closeModal} style={{ cursor: "pointer"  }} /> 
-            </div> 
+            <div className="task-selected">
+              <span>{selectedTasks.length} Tasks Selected</span>
+              <X onClick={closeModal} style={{ cursor: "pointer" }} />
+            </div>
             <div className="select-all-buttons">
-            <CheckSquare
+              <CheckSquare
                 onClick={toggleSelectAllTasks}
-                style={{ cursor: "pointer", color: selectedTasks.length === tasks.length ? "green" : "grey" }} // Change color based on selection
+                style={{
+                  cursor: "pointer",
+                  color:
+                    selectedTasks.length === tasks.length ? "green" : "grey",
+                }} // Change color based on selection
               />
             </div>
 

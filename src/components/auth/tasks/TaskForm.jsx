@@ -16,6 +16,7 @@ const TaskForm = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const createdTime = new Date().toISOString();
     const newTask = {
       id: Date.now(),
       title,
@@ -24,6 +25,7 @@ const TaskForm = ({ onClose }) => {
       dueDate,
       status,
       file,
+      createdTime
     };
     dispatch(addTask(newTask));
     onClose();

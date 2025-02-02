@@ -14,11 +14,14 @@ const taskSlice = createSlice({
     },
     updateTaskStatus: (state, action) => {
       const { id, status } = action.payload;
-      const task = state.tasks.find((task) => task.id === id);
-      if (task) {
-        task.status = status;
+      console.log(`Redux updating task ${id} to ${status}`); // Debug log
+      
+      const taskIndex = state.tasks.findIndex((task) => task.id.toString() === id.toString());
+      if (taskIndex !== -1) {
+        state.tasks[taskIndex].status = status; 
       }
     },
+    
     updateTask: (state, action) => {
       const { id, updatedTaskData } = action.payload;
       state.tasks = state.tasks.map((task) =>

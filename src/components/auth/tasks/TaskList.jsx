@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./TaskList.css";
 import "./KanbanBoard";
 
@@ -34,6 +34,10 @@ const TaskList = ({ openAddTask }) => {
     
     return filteredTasks;
   };
+
+  useEffect(() => {
+    console.log("Updated tasks:", tasks);
+  }, [tasks]);
 
   const handleDeleteTask = (id) => {
     console.log("Deleting task with id:", id);
@@ -112,12 +116,14 @@ const TaskList = ({ openAddTask }) => {
             tasks={filterTasks("Todo")}
             onDelete={handleDeleteTask}
             onStatusChange={handleStatusChange}
+
           />
           <KanbanBoard
              title="In-Progress"
              tasks={filterTasks("In-Progress")}
              onDelete={handleDeleteTask}
              onStatusChange={handleStatusChange}
+             
           />
           <KanbanBoard
                title="Completed"

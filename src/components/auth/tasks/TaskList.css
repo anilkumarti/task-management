@@ -231,3 +231,98 @@
     margin-top: 10px;
   }
 }
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .task-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .filter-section, .search-add-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filter-section select, .search-add-section input, .calender {
+    width: 100%;
+  }
+
+  .add-task-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .search-add-section {
+    flex-direction: column;
+    gap: 10px; 
+  }
+  .search-add-section input {
+    width: 100%; 
+  }
+    
+  .task-list-container {
+    padding: 15px;
+  }
+
+  .task-heading {
+    display: flex;
+    flex-direction:  row;
+  justify-content: space-between;
+     
+    /* grid-template-columns: 1fr;
+    text-align: center; */
+  }
+
+  .task {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .Kanban-Board {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .view-switcher {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .view-switcher button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-heading p {
+    font-size: 12px;
+  }
+
+  .task h4 {
+    font-size: 14px;
+  }
+
+  .task p {
+    font-size: 12px;
+  }
+
+  .task button, .add-task-btn {
+    font-size: 12px;
+    padding: 5px;
+  }
+.view-switcher{
+  display: none; 
+  
+}
+  .view-switcher button {
+    font-size: 12px;
+    display: h;
+  
+  }
+  .task-heading {
+    display: none; /* Hide the task-heading on smaller screens */
+  }
+}
