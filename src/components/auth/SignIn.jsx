@@ -8,6 +8,7 @@ import { loginStart, loginSuccess, loginFailure } from "../../redux/slices/authS
 import "./SignIn.css"; // Import the CSS file
 import circlesBg from "../../assets/icons/circles_bg.png"; 
 import taskImage from "../../assets/TaskList.png"; 
+import { ReactComponent as TaskbudySymbol } from "../../assets/icons/taskbudySymbol.svg";
 
 
 const SignIn = () => {
@@ -40,7 +41,9 @@ const SignIn = () => {
  
 
     <div className="sign-in-container">
-      <h1 className="title">Task Buddy</h1>
+      <div className="title"> <TaskbudySymbol/></div>
+      <p className="taskbuddy-goal">Streamline your workflow and track progress <br/> effortlessly
+         with our all-in-one task management app.</p>
       <button className="sign-in-button" onClick={handleSignIn}>
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" />
         Continue with Google

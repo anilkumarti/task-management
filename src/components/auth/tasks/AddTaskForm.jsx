@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import './AddTaskForm.css';
 
-const AddTaskForm = ({ onAdd, onCancel }) => {
+import { useDispatch } from 'react-redux';
+import { addTask } from '../../../redux/slices/taskSlice';
+
+
+
+const AddTaskForm = ({ onCancel }) => {
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         title: '',
         dueDate: '',
@@ -27,7 +33,7 @@ const AddTaskForm = ({ onAdd, onCancel }) => {
             dueDate: formData.dueDate || 'Today'
         };
         
-        onAdd(newTask);
+       dispatch(addTask(newTask));
     };
 
     return (
@@ -46,26 +52,14 @@ const AddTaskForm = ({ onAdd, onCancel }) => {
                         autoFocus
                     /> 
                     <div className="task-controls">
-                        <button 
-                            type="button" 
-                            className="date-button"
-                            onClick={() => {
-                                const dateInput = document.createElement('input');
-                                dateInput.type = 'date';
-                                dateInput.onchange = (e) => {
-                                    handleChange({
-                                        target: {
-                                            name: 'dueDate',
-                                            value: e.target.value
-                                        }
-                                    });
-                                };
-                                dateInput.click();
-                            }}
-                        >
-                            📅 Add date
-                        </button>
-                        
+                       
+                    <input
+                            type="date"
+                            name="dueDate"
+                            value={formData.dueDate}
+                            onChange={handleChange}
+                            className="date-input"
+                        />
                         <select
                             name="status"
                             value={formData.status}

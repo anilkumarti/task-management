@@ -61,7 +61,7 @@
 
 .kanban-task.dragging {
   opacity: 0.5;
-  border: 2px dashed #ccc;
+  border: 2px dashed #000;
 }
 
 .first-row {

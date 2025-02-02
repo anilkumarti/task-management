@@ -5,12 +5,14 @@
   align-items: center;
   width: 100%;
   overflow: hidden;
+  background-color: #FFF9F9;
   
 }
 .sign-in-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start !important;
+   gap: 15px;
+    align-items: center !important;
     justify-content: center;
     
   
@@ -18,19 +20,21 @@
   }
    
   
-  .sign-in-container h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #7B1984;
-  }
+ 
+.title svg {
+  width: 200px; /* Adjust the size as needed */
+  height: auto; /* Maintain aspect ratio */
+  fill: #7B1984; /* Change the color if needed */
+}
   
   .sign-in-button {
     background-color: #292929;
     color: white;
     border: none;
     padding: 10px 20px;
+    height: 60px;
     font-size: 1rem;
-    border-radius: 10px;
+    border-radius: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -45,7 +49,10 @@
     width: 20px;
     margin-right: 10px;
   }
-  
+  .task-icon {
+    padding: 4px;
+    color: #7B1984;
+  }
   .sample-image {
     display: flex;
     align-items: center;
@@ -142,6 +149,7 @@
       padding: 8px 14px;
     }
     .sample-image {
+      background-size: repeat; 
       min-height: 100px !important;
     }
   
