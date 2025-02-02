@@ -31,6 +31,7 @@ const [draggedTaskId, setDraggedTaskId] = useState(null);
   };
 
   const handleAddTask = (newTask) => {
+    
     setShowAddForm(false);
   };
 
