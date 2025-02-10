@@ -34,6 +34,12 @@ const AddTaskForm = ({ onCancel }) => {
         };
         
        dispatch(addTask(newTask));
+       setFormData({
+        title: '',
+        dueDate: '',
+        status: 'Todo',
+        category: 'Work'
+    });
     };
 
     return (

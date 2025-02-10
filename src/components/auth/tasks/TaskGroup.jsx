@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./TaskGroup.css";
 import UpdateTaskModal from "./UpdateTaskModal";
 import "./AddTaskForm";
@@ -115,7 +115,94 @@ const [draggedTaskId, setDraggedTaskId] = useState(null);
       setDraggedTaskId(null);
     }
   };
-  
+   const taskList=useMemo(()=> {
+  return  tasks.map((task) => (
+    <div key={task.id} className="task-item"  onDragStart={(e) => handleDragStart(e, task.id)} draggable >
+      {/* Checkbox */}
+      <div className="task-checkbox">
+        <input
+          type="checkbox"
+          checked={selectedTasks.includes(task.id)}
+          onChange={() => handleCheckboxChange(task.id)}
+        />
+        <GripVerticalIcon />
+        {task.status === "Completed" ? (
+          <CheckmarkIcon width={24} height={24} />
+        ) : (
+          <CheckmarkGrey width={24} height={24} />
+        )}
+      </div>
+
+      {/* updateModal */}
+      {openUpdateModal === task.id && (
+        <UpdateTaskModal
+          task={task}
+          onClose={() => setOpenUpdateModal(null)}
+          onUpdate={handleUpdateTask}
+        />
+      )}
+
+      <p className="task-due">
+        {currentDate === task.dueDate
+          ? "Today"
+          : formatDate(task.dueDate)}
+      </p>
+      <h4 className={`task-title ${task.status === "Completed" ? "completed-task" : ""}`}
+      >
+        {task.title}
+      </h4>
+
+      <p className="task-category">{task.category}</p>
+
+      <div className="task-status-select">
+        <select
+          value={task.status}
+          onChange={(e) => onStatusChange(task.id, e.target.value)}
+          className="task-status"
+        >
+          <option value="Todo">To-Do</option>
+          <option value="In-Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+
+      <div className="task-actions">
+        <div className="edit-del-button">
+          {/* Trigger button */}
+          <button
+            onClick={() => toggleMenu(task.id)}
+            style={{
+              fontSize: "20px",
+              border: "none",
+              background: "none",
+              cursor: "pointer",
+            }}
+          >
+            &#x22EE;
+          </button>
+
+          {/* Dropdown Menu */}
+          {openTaskId === task.id && (
+            <div className="edit-del-dropdown">
+              <div
+                className="edit-btn"
+                onClick={() => openUpdateModalHandler(task.id)}
+              >
+                ✏️ Edit
+              </div>
+              <div
+                className="del-btn"
+                onClick={() => onDelete(task.id)}
+              >
+                🗑️ Delete
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  ))
+   },[tasks, selectedTasks,openTaskId,openUpdateModal])
   return (
     <>
       <div className="task-group"   onDragOver={handleDragOver}
@@ -144,92 +231,7 @@ const [draggedTaskId, setDraggedTaskId] = useState(null);
         {/* items of each task row */}
 
         {tasks.length > 0 ? (
-          tasks.map((task) => (
-            <div key={task.id} className="task-item"  onDragStart={(e) => handleDragStart(e, task.id)} draggable >
-              {/* Checkbox */}
-              <div className="task-checkbox">
-                <input
-                  type="checkbox"
-                  checked={selectedTasks.includes(task.id)}
-                  onChange={() => handleCheckboxChange(task.id)}
-                />
-                <GripVerticalIcon />
-                {task.status === "Completed" ? (
-                  <CheckmarkIcon width={24} height={24} />
-                ) : (
-                  <CheckmarkGrey width={24} height={24} />
-                )}
-              </div>
-
-              {/* updateModal */}
-              {openUpdateModal === task.id && (
-                <UpdateTaskModal
-                  task={task}
-                  onClose={() => setOpenUpdateModal(null)}
-                  onUpdate={handleUpdateTask}
-                />
-              )}
-
-              <p className="task-due">
-                {currentDate === task.dueDate
-                  ? "Today"
-                  : formatDate(task.dueDate)}
-              </p>
-              <h4 className={`task-title ${task.status === "Completed" ? "completed-task" : ""}`}
-              >
-                {task.title}
-              </h4>
-
-              <p className="task-category">{task.category}</p>
-
-              <div className="task-status-select">
-                <select
-                  value={task.status}
-                  onChange={(e) => onStatusChange(task.id, e.target.value)}
-                  className="task-status"
-                >
-                  <option value="Todo">To-Do</option>
-                  <option value="In-Progress">In Progress</option>
-                  <option value="Completed">Completed</option>
-                </select>
-              </div>
-
-              <div className="task-actions">
-                <div className="edit-del-button">
-                  {/* Trigger button */}
-                  <button
-                    onClick={() => toggleMenu(task.id)}
-                    style={{
-                      fontSize: "20px",
-                      border: "none",
-                      background: "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    &#x22EE;
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {openTaskId === task.id && (
-                    <div className="edit-del-dropdown">
-                      <div
-                        className="edit-btn"
-                        onClick={() => openUpdateModalHandler(task.id)}
-                      >
-                        ✏️ Edit
-                      </div>
-                      <div
-                        className="del-btn"
-                        onClick={() => onDelete(task.id)}
-                      >
-                        🗑️ Delete
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))
+          taskList
         ) : (
           <p className="no-tasks">No tasks available.</p>
         )}

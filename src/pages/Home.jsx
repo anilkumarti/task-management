@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import TaskForm from '../components/auth/tasks/TaskForm'
-import TaskList from '../components/auth/tasks/TaskList'
+import React, { Suspense, useState } from 'react'
 
+import TaskList from '../components/auth/tasks/TaskList'
+const LazyTaskForm= React.lazy(()=> import('../components/auth/tasks/TaskForm' ) )
 const Home = () => {
   const[showModal,setShowMoadal]=useState(false);
   const closeHandle=()=> {
     setShowMoadal(prev=> setShowMoadal(!prev))
   }
   return (
-    <div>
-    { showModal && <TaskForm onClose={closeHandle} /> }
+    <> 
+    { showModal && ( <Suspense> <LazyTaskForm onClose={closeHandle}  />  </Suspense>  )  }
      <TaskList  openAddTask={closeHandle} />
       
-    </div>
+     </>
   )
 }
 

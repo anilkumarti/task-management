@@ -36,9 +36,9 @@ const TaskList = ({ openAddTask }) => {
   };
 
   useEffect(() => {
-    console.log("Updated tasks:", tasks);
-  }, [tasks]);
-
+    console.log("openAddTask triggered");
+  }, [openAddTask]);
+  
   const handleDeleteTask = (id) => {
     console.log("Deleting task with id:", id);
     dispatch(deleteTask(id));
@@ -100,7 +100,8 @@ const TaskList = ({ openAddTask }) => {
       onChange={(e) => setSearchTerm(e.target.value)}
     />
 
-    <button onClick={openAddTask} className="add-task-btn">
+    <button onClick={(e)=> {  e.stopPropagation();
+      openAddTask();}} className="add-task-btn" >
       Add Task
     </button>
 

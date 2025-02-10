@@ -4,6 +4,7 @@ import { logoutUser } from '../../../services/auth';
 import './Navbar.css'
 import { LogOut} from 'lucide-react';
 import { ReactComponent as TaskIcon } from "../../../assets/icons/task_icon.svg";
+import Loading from '../../../pages/Loading';
 
 const Navbar = () => {
   const { user, loading } = useSelector((state) => state.auth);
@@ -14,7 +15,7 @@ const Navbar = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    <Loading/>
   }
 
   return (
