@@ -1,32 +1,26 @@
-.main-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-  background-color: #FFF9F9;
-  
-}
+
+
 .sign-in-container {
     display: flex;
     flex-direction: column;
    gap: 15px;
     align-items: center !important;
     justify-content: center;
+  min-height: 80vh;
     
-  
+  padding: 20px;
     font-family: Arial, sans-serif;
   }
    
   
- 
-.title svg {
-  width: 200px; /* Adjust the size as needed */
-  height: auto; /* Maintain aspect ratio */
-  fill: #7B1984; /* Change the color if needed */
-}
   
+
+ .title svg {
+  width: 200px; 
+  height: auto; 
+  fill: #7B1984; 
+}  
+   
   .sign-in-button {
     background-color: #292929;
     color: white;
@@ -55,12 +49,7 @@
   }
  
   @media screen and (max-width: 1024px) {
-    .main-container {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+   
   
     .sign-in-container {
       align-items: center;
@@ -72,14 +61,7 @@
   
 
   @media screen and (max-width: 1024px) {
-    .main-container {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      height: auto;
-      padding: 50px 20px;
-    }
+   
   
     .sign-in-container {
       align-items: center;

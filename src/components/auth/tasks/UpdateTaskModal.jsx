@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./UpdateTaskModal.css";
 import logActivity from "../../../services/logActivity";
 import ActivityLog from "../../../services/ActivityLog";
-
+// import { useDispatch } from "react-redux";
+// import { updateTask } from "../../../redux/slices/taskSlice";
 const UpdateTaskModal = ({ task, onClose, onUpdate }) => {
+  // const dispatch=useDispatch();
   const [activeTab, setActiveTab] = useState("update");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
 
